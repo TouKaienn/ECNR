@@ -8,15 +8,6 @@
         },
         "_comment": "available total_time_samples is 60 /media/dullpigeon/VIS/VolumeData/supernova/Supernova_E"
     },
-    "Vortex":{
-        "dim"          : [128,128,128],
-        "total_samples": 90,
-        "vars"         : ["Scalar"],
-        "data_path"    : {
-            "Scalar": "./Data/vorts/vorts"
-        },
-        "_comment": "available total_time_samples is 90"
-    },
     "Tangaroa":{
         "dim"          : [300,180,120],
         "total_samples": 150,
