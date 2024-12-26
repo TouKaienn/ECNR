@@ -4,13 +4,13 @@
 This is the Pytorch implementation for ECNR: Efficient Compressive Neural Representation of Time-Varying Volumetric Datasets
 
 ## Installation
-Create conda env:
+First, create conda env:
 ```
 git clone https://github.com/TouKaienn/STSR-INR.git
 conda create --name ECNR python=3.9
 conda activate ECNR
 ```
-Install pytorch and other dependencies:
+Then, install pytorch and other dependencies:
 ```
 pip install torch==2.3.1 torchvision==0.18.1 torchaudio==2.3.1 --index-url https://download.pytorch.org/whl/cu118
 pip install -r requirements.txt
