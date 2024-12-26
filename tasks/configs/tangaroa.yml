@@ -1,0 +1,39 @@
+model_name: ECNR 
+mode: debug # train, debug or inf local_inf
+enable_wandb: False # use wandb for log or not
+project: Tangaroa_VTM
+name: Tangaroa #the name of this run
+tags: ['ECNR']
+model_setting: # 300 180 120 -> 150 90 60 -> 75 45 30 -> 25 15 10
+  init: [24,24,24]
+  block_dims: [[25,15,10],[25,15,10],[25,15,10]] #[16,16,16] 
+  n_layers: [4,4,4] # total layer_num = n_layers
+  timeCodeDim: 8
+  act: 'sine'
+  omega_0: 30
+  n_bits: [8,8,8] # num of bits for weight for each scale
+  n_bits_bias: [8,8,8] # num of bits for bias for each scale
+  n_bits_latent: 0 # if 0, will not apply quantization
+
+train_setting:
+  log_root_dir: "../Exp"
+  version: "Tangaroa_VTM"
+  sparsity: [0.5,0.5,0.5]
+  sparsity_bias: [0.5,0.5,0.5] # will reduce quant error if larger, but will increase the prune error
+  QAT_epochs: [75,75,75]
+  num_epochs: [500,500,500]
+  lr: 1.0e-3 #init learning rate
+  enable_prune: True
+  quant_opt: cluster  # None cluster
+  prune_block_prioritized_weight: 1.0e-1
+  weight_penalty: 2.0e-5
+  ks: [4,8,16] #how many blocks one MLP handle for each scale
+  
+#*NOTE: Remeber to change the dims,timesteps in data_setting to align up
+
+data_setting: # [Vortex_Scalar]
+  dataset: [Tangaroa_VTM] #Dataset_Var [Supernova_Scalar]
+  batch_size: 3200 # the batch size
+  nums_scale: 2
+  cut_threshold: 1.0e-4
+  downScaleMethod: sample # resize or sample (if 'sample', we did not support overlapping)

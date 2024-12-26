@@ -1,0 +1,40 @@
+model_name: ECNR 
+mode: debug # by default setting
+enable_wandb: False # use wandb for log or not
+project: Scalar
+name: Supernova #the name of this run
+tags: ['ECNR']
+model_setting: # 432 -> 216 -> 108, totally three scales
+  init: [23,23,23] # num neurons each layer for each scale
+  block_dims: [[18,18,18],[18,18,18],[18,18,18]] #block dimensions for each scale
+  n_layers: [4,4,4] # total layer_num = n_layers for each scale
+  timeCodeDim: 8 # block latent code dimension for each scale
+  act: 'sine'
+  omega_0: 30
+  n_bits: [9,9,9] # num of bits for weight for each scale
+  n_bits_bias: [9,9,9] # num of bits for bias for each scale
+  n_bits_latent: 0 # by default 0, no need not apply quantization to block latent code
+
+train_setting:
+  log_root_dir: "../Exp/"
+  version: "ECNRsupernova432"
+  sparsity: [0.5,0.5,0.5] # target prune sparsity for weight for each scale
+  sparsity_bias: [0.5,0.5,0.5] # target prune sparsity for bias for each scale
+  QAT_epochs: [20,20,20] # quantization epochgs number for each scale
+  num_epochs: [200,150,125] # encoding epochs for each scale
+  n_blocks_eachMLP: None  # if None, set num of MLPs as the needed MLPs for most complex timestep
+  lr: 1.0e-3 #init learning rate
+  enable_prune: True #True
+  quant_opt: cluster #cluster  # None cluster
+  prune_block_prioritized_weight: 1.0e-1
+  weight_penalty: 2.0e-5
+  ks: [1,2,4] #how many blocks one MLP handle for each scale
+  
+  
+data_setting: 
+  dataset: [Supernova_Scalar] #Dataset_Var [Supernova_Scalar]
+  batch_size: 3200   # the batch size
+  nums_scale: 2
+  cut_threshold: 1.0e-4 #1.0e-4
+  downScaleMethod: sample # resize or sample (if 'sample', we did not support overlapping)
+  
