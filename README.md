@@ -34,20 +34,21 @@ Unzip the downloaded file ``Data.zip`` and put the data into the root dir, you c
 ```
 
 
-## Training and Inference
-After Saving all your data in ./Data dir and then ensure ./dataInfo/localDataInfo.json includes all the necessary information for each volume data. Use the yaml file which contains all the hyper-parameters settings within ./configs dir to train or inference.
+## Network Training
+After Saving all your data in ``./Data`` dir and then ensure ``./dataInfo/localDataInfo.json`` includes all the necessary information for each volume data. Use the yaml file which contains all the hyper-parameters settings within ``./configs`` dir to train or inference.
 
+For example, when encoding supernova dataset, run the following in root dir:
+```
+python3 main.py --config_path './tasks/configs/supernova.yml'
+```
+or run bash shell script in ``./tasks`` dir with:
+```
+bash supernova.sh
+```
 
-```
-python3 main.py --config_path './configs/ionization_inf.yml'
-```
+The above commands will first encode the volume, inference the optimized network and evaluate the PSNR accuracy. We offer our pretrained model weights of supernova and tangaroa dataset and also the CNN post-processing code over [here](https://drive.google.com/drive/folders/1Hy2QZppXBZKN6JGW6V21AA9btg5ZK1dh).
 
-To train from scratch:
-```
-python3 main.py --config_path './configs/ionization_train.yml'
-```
-
-After training or inference finished, you should be able to find the results in ./Exp dir.
+If you wish to visualize the block allocation, please refer to our implementation in ``pth2vtk.py``.
 
 ## Citation
 ```
