@@ -6,7 +6,7 @@ This is the Pytorch implementation for ECNR: Efficient Compressive Neural Repres
 ## Installation
 First, create conda env:
 ```
-git clone https://github.com/TouKaienn/STSR-INR.git
+git clone https://github.com/TouKaienn/ECNR.git
 conda create --name ECNR python=3.9
 conda activate ECNR
 ```
